@@ -37,6 +37,7 @@ import javax.swing.*;
 import javax.swing.event.*;
 import javax.swing.filechooser.FileFilter;
 
+import com.sun.org.apache.bcel.internal.generic.LSTORE;
 import jgam.*;
 import jgam.ai.*;
 import jgam.game.*;
@@ -273,7 +274,9 @@ public class NewGameDialog extends JDialog {
     public boolean showAndEval() {
 
         gameConnection = null;
-        game = new ArrayList<Game>();
+        this.game = new ArrayList<Game>();
+
+        Game tempGame;
 
         while (true) {
             okPressed = false;
@@ -300,14 +303,15 @@ public class NewGameDialog extends JDialog {
                     } else {
                         Player player1 = new UIPlayer(name1.getText(), jgam);
                         Player player2 = new UIPlayer(name2.getText(), jgam);
-                        game = new Game(new LocalDiceRoller(), player1, player2, jgam);
+                        tempGame = new Game(new LocalDiceRoller(), player1, player2, jgam);
                         if (boardFile != null) {
                             BoardSetup snapshot = new FileBoardSetup(boardFile);
                             if (invertSnapshot.isSelected()) {
                                 snapshot = new InvertedBoardSetup(snapshot);
                             }
-                            game.setBoardSetup(snapshot);
+                            tempGame.setBoardSetup(snapshot);
                         }
+                        game.add(tempGame);
                         return true;
                     }
                 } else if (RBcomputer.isSelected()) {
@@ -322,19 +326,34 @@ public class NewGameDialog extends JDialog {
                             Player player1 = new UIPlayer(locName.getText(), jgam);
                             // Player player1 = new GnubgPlayer("localhost", 1779);
                             Player player2 = new AIPlayer(selectedAI);
-                            game = new Game(new LocalDiceRoller(), player1, player2, jgam);
+                            tempGame = new Game(new LocalDiceRoller(), player1, player2, jgam);
                             if (boardFile != null) {
                                 BoardSetup snapshot = new FileBoardSetup(boardFile);
                                 if (invertSnapshot.isSelected()) {
                                     snapshot = new InvertedBoardSetup(snapshot);
                                 }
-                                game.setBoardSetup(snapshot);
+                                tempGame.setBoardSetup(snapshot);
                             }
+                            game.add(tempGame);
                             return true;
                         }
                     }
                 } else if (RBcvc.isSelected()){
-                    //TODO aqui rola umas coisa
+                    AI pSelec = selectAI();
+                    AI sSelec = selectAI();
+
+                    int nJgs = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero de jogos:"));
+
+                    if (pSelec != null && sSelec != null) {
+                        Player ai1 = new AIPlayer(pSelec);
+                        Player ai2 = new AIPlayer(sSelec);
+
+                        for (int i = 0; i < nJgs; i++) {
+                            tempGame = new Game(new LocalDiceRoller(), ai1, ai2, jgam);
+                            game.add(tempGame);
+                        }
+                        return  true;
+                    }
                 } else { // network game
                     if (locName.getText().length() == 0) {
                         JOptionPane.showMessageDialog(this,
@@ -347,8 +366,9 @@ public class NewGameDialog extends JDialog {
                                          locName.getText());
                         Player locPlayer = new UIPlayer(locName.getText(), jgam);
                         Player remPlayer = new JGammonNetPlayer(gameConnection);
-                        game = new Game(gameConnection, remPlayer, locPlayer, jgam);
-                        game.setBoardSetup(gameConnection.getBoardSetup());
+                        tempGame = new Game(gameConnection, remPlayer, locPlayer, jgam);
+                        tempGame.setBoardSetup(gameConnection.getBoardSetup());
+                        game.add(tempGame);
                         return true;
                     } else { // server is checked
                         BoardSetup snapshot = null;
@@ -371,8 +391,9 @@ public class NewGameDialog extends JDialog {
                         Player locPlayer = new UIPlayer(locName.getText(), jgam);
                         Player remPlayer = new JGammonNetPlayer(gameConnection);
 
-                        game = new Game(gameConnection, locPlayer, remPlayer, jgam);
-                        game.setBoardSetup(snapshot == null ? BoardSnapshot.INITIAL_SETUP : snapshot);
+                        tempGame = new Game(gameConnection, locPlayer, remPlayer, jgam);
+                        tempGame.setBoardSetup(snapshot == null ? BoardSnapshot.INITIAL_SETUP : snapshot);
+                        game.add(tempGame);
                         return true;
                     }
                 }
@@ -427,7 +448,7 @@ public class NewGameDialog extends JDialog {
      * get the game that has recently been constructed
      * @return Game
      */
-    public Game getGame() {
+    public java.util.List<Game> getGame() {
         return game;
     }
 

@@ -2,51 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="edefb85e-86c9-4afe-b4a6-3671514910f1" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/jgam/ai/IAProgramadaPelaEquipe.java" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/Additional Docs.txt" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/Pip2TurnsData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/bearoff.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/bearoffstreu.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/contourprob.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/pip2turn.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/pip2turn2.dat" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/pip2turns.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/prob2d.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/raceapprox.html" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/sigmoid.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/sigmoid2.gif" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/documentation/variousprob.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/net/TestChannelReader.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/net/TestChannelWriter.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/net/TestJGammonConnection.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/net/TestSuiteNet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/util/TestDebugPropertyResourceBundle.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/test/jgam/test/util/TestSecureRoll.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/gregr.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/AskGnuBG.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/BearOffStreuung.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/ConsoleApp.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/ConsoleFrame.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/FeatureTrainer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/MakeBOStatistics.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/MakeNewNeuralNet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/MakeRaceStatistics.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/NakedSetup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/Pip2TurnsData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/Pip2WinsData.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/ProbRaceRolloutTraining.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/ProbRaceTraining.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/RaceTrainer.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/ReinforcementTraining.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/TrainNeuralNet.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/java/TrainingSetup.java" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/mittel.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/race.ser" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/regr.asv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/regr.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/sigmoid.m" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/train/training1.properties" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/build.xml" afterPath="$PROJECT_DIR$/build.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jgam/JGammon.java" afterPath="$PROJECT_DIR$/src/jgam/JGammon.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java" afterPath="$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java" />
     </list>
     <ignored path="Trab1.iws" />
@@ -69,23 +25,25 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="NewGameDialog.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="NewGameDialog.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="462">
-              <caret line="303" column="29" selection-start-line="303" selection-start-column="29" selection-end-line="303" selection-end-column="29" />
+            <state relative-caret-position="112">
+              <caret line="449" column="7" selection-start-line="449" selection-start-column="7" selection-end-line="449" selection-end-column="7" />
               <folding>
                 <element signature="imports" expanded="true" />
+                <element signature="e#21262#21263#0" expanded="true" />
+                <element signature="e#21289#21290#0" expanded="true" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="JGammon.java" pinned="false" current-in-tab="false">
+      <file leaf-file-name="JGammon.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/src/jgam/JGammon.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="210">
-              <caret line="313" column="43" selection-start-line="313" selection-start-column="43" selection-end-line="313" selection-end-column="43" />
+            <state relative-caret-position="2676">
+              <caret line="464" column="7" selection-start-line="464" selection-start-column="7" selection-end-line="464" selection-end-column="7" />
               <folding />
             </state>
           </provider>
@@ -106,6 +64,7 @@
       <list>
         <option value="$PROJECT_DIR$/src/jgam/ai/IAProgramadaPelaEquipe.java" />
         <option value="$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java" />
+        <option value="$PROJECT_DIR$/src/jgam/JGammon.java" />
       </list>
     </option>
   </component>
@@ -718,12 +677,12 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1494605543343</updated>
-      <workItem from="1494605556460" duration="3449000" />
+      <workItem from="1494605556460" duration="5739000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="3449000" />
+    <option name="totallyTimeSpent" value="5739000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="65" y="24" width="1301" height="744" extended-state="6" />
@@ -842,21 +801,23 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jgam/JGammon.java">
+    <entry file="file://$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="210">
-          <caret line="313" column="43" selection-start-line="313" selection-start-column="43" selection-end-line="313" selection-end-column="43" />
-          <folding />
+        <state relative-caret-position="112">
+          <caret line="449" column="7" selection-start-line="449" selection-start-column="7" selection-end-line="449" selection-end-column="7" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#21262#21263#0" expanded="true" />
+            <element signature="e#21289#21290#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/jgam/gui/NewGameDialog.java">
+    <entry file="file://$PROJECT_DIR$/src/jgam/JGammon.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="462">
-          <caret line="303" column="29" selection-start-line="303" selection-start-column="29" selection-end-line="303" selection-end-column="29" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="2676">
+          <caret line="464" column="7" selection-start-line="464" selection-start-column="7" selection-end-line="464" selection-end-column="7" />
+          <folding />
         </state>
       </provider>
     </entry>

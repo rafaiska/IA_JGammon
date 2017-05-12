@@ -27,6 +27,7 @@ package jgam;
 import java.awt.event.*;
 import java.io.*;
 import java.net.*;
+import java.security.cert.TrustAnchor;
 import java.util.*;
 
 import javax.swing.*;
@@ -59,6 +60,8 @@ public class JGammon implements ActionListener {
     private NewGameDialog newGameDialog;
 
     private Game game;
+
+    private java.util.List<Game> listJgos;
 
     private GameConnection gameConnection;
 
@@ -311,7 +314,8 @@ public class JGammon implements ActionListener {
 
         if (newGameDialog.showAndEval()) {
             clearGame();
-            game = newGameDialog.getGame();
+            listJgos = newGameDialog.getGame();
+            game = listJgos.remove(0);
             gameConnection = newGameDialog.getGameConnection();
             game.start();
             getFrame().setGame(true);
@@ -450,6 +454,12 @@ public class JGammon implements ActionListener {
         jGamFrame.repaint();
         jGamFrame.setGame(false);
         jGamFrame.getBoard().useBoardSetup(null);
+
+        if (listJgos != null && !listJgos.isEmpty()) {
+            game = listJgos.remove(0);
+            game.start();
+            getFrame().setGame(true);
+        }
     }
 
     /**
