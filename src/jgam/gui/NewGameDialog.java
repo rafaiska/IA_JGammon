@@ -59,6 +59,7 @@ public class NewGameDialog extends JDialog {
     private JRadioButton RBnetwork = new JRadioButton();
     private JRadioButton RBclient = new JRadioButton();
     private JRadioButton RBcomputer = new JRadioButton();
+    private JRadioButton RBcvc = new JRadioButton(); //Marcando alteração
     private Component component1 = Box.createHorizontalStrut(8);
     private JLabel jLabel1 = new JLabel();
     private JTextField name1 = new JTextField();
@@ -99,7 +100,7 @@ public class NewGameDialog extends JDialog {
     private JCheckBox invertSnapshot = new JCheckBox();
     private File boardFile = null;
 
-    private Game game;
+    private java.util.List<Game> game;
     private JGammonConnection gameConnection;
 
     public NewGameDialog(JGammon jgam) {
@@ -143,10 +144,13 @@ public class NewGameDialog extends JDialog {
         RBclient.addChangeListener(changeListener);
         RBserver.addChangeListener(changeListener);
         RBcomputer.addChangeListener(changeListener);
+        RBcvc.addChangeListener(changeListener); //TODO só para marcar a alteração
         RBnetwork.setText(msg.getString("network"));
         RBclient.setSelected(true);
         RBclient.setText(msg.getString("connect"));
         RBcomputer.setText(msg.getString("gnubg"));
+        //TODO rola alguma coisa aqui
+        RBcvc.setText("Computador Vs. Computador");
         jLabel1.setText(msg.getString("locname1"));
         name1.setPreferredSize(new Dimension(110, 20));
         name1.setText("Antonetta");
@@ -199,6 +203,7 @@ public class NewGameDialog extends JDialog {
         topGroup.add(RBlocal);
         topGroup.add(RBnetwork);
         topGroup.add(RBcomputer);
+        topGroup.add(RBcvc);
         remoteGroup.add(RBclient);
         remoteGroup.add(RBserver);
         this.getContentPane().add(panel1, java.awt.BorderLayout.CENTER);
@@ -214,17 +219,17 @@ public class NewGameDialog extends JDialog {
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 7), 0, 0));
         panel1.add(jLabel4, new GridBagConstraints(2, 8, 2, 1, 0.0, 0.0
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 7), 0, 0));
-        panel1.add(jLabel5, new GridBagConstraints(2, 9, 2, 1, 0.0, 0.0
+        panel1.add(jLabel5, new GridBagConstraints(2, 10, 2, 1, 0.0, 0.0
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 7), 0, 0));
         panel1.add(jLabel9, new GridBagConstraints(0, 12, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 20, 0, 0), 0, 0));
-        panel1.add(jLabel3, new GridBagConstraints(2, 10, 2, 1, 0.0, 0.0
+        panel1.add(jLabel3, new GridBagConstraints(2, 11, 2, 1, 0.0, 0.0
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 7), 0, 0));
-        panel1.add(RBserver, new GridBagConstraints(2, 6, 3, 1, 0.0, 0.0
+        panel1.add(RBserver, new GridBagConstraints(2, 7, 3, 1, 0.0, 0.0
                 , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 0, 0), 0, 0));
         panel1.add(jLabel7, new GridBagConstraints(0, 4, 1, 4, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
-        panel1.add(RBclient, new GridBagConstraints(2, 7, 3, 1, 0.0, 0.0
+        panel1.add(RBclient, new GridBagConstraints(2, 8, 3, 1, 0.0, 0.0
                 , GridBagConstraints.WEST, GridBagConstraints.BOTH, new Insets(0, 0, 0, 0), 0, 0));
         panel1.add(cancel, new GridBagConstraints(1, 14, 3, 1, 0.0, 0.0
                 , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(0, 0, 19, 0), 0, 0));
@@ -240,9 +245,9 @@ public class NewGameDialog extends JDialog {
                 , GridBagConstraints.EAST, GridBagConstraints.NONE, new Insets(0, 0, 0, 20), 0, 0));
         panel1.add(server, new GridBagConstraints(4, 8, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
-        panel1.add(port, new GridBagConstraints(4, 9, 1, 1, 0.0, 0.0
+        panel1.add(port, new GridBagConstraints(4, 10, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
-        panel1.add(locName, new GridBagConstraints(4, 10, 1, 1, 0.0, 0.0
+        panel1.add(locName, new GridBagConstraints(4, 11, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
         panel1.add(name1, new GridBagConstraints(4, 1, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
@@ -250,9 +255,13 @@ public class NewGameDialog extends JDialog {
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
         panel1.add(RBcomputer, new GridBagConstraints(1, 3, 4, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 0, 0, 0), 0, 0));
+        //TODO configurar corretamente isso
+        panel1.add(RBcvc, new GridBagConstraints(1, 5, 4, 1, 0.0, 0.0
+                , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(20, 0, 0, 0), 0, 0));
+        //TODO Tem que colocar umas escolhas para as ia
         panel1.add(jLabel8, new GridBagConstraints(0, 3, 1, 2, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
-        panel1.add(RBnetwork, new GridBagConstraints(1, 5, 4, 1, 0.0, 0.0
+        panel1.add(RBnetwork, new GridBagConstraints(1, 6, 4, 1, 0.0, 0.0
                 , GridBagConstraints.WEST, GridBagConstraints.NONE, new Insets(20, 0, 0, 0), 0, 0));
         panel1.add(locAIName, new GridBagConstraints(4, 4, 1, 1, 0.0, 0.0
                 , GridBagConstraints.CENTER, GridBagConstraints.BOTH, new Insets(0, 0, 0, 20), 0, 0));
@@ -264,7 +273,7 @@ public class NewGameDialog extends JDialog {
     public boolean showAndEval() {
 
         gameConnection = null;
-        game = null;
+        game = new ArrayList<Game>();
 
         while (true) {
             okPressed = false;
@@ -324,6 +333,8 @@ public class NewGameDialog extends JDialog {
                             return true;
                         }
                     }
+                } else if (RBcvc.isSelected()){
+                    //TODO aqui rola umas coisa
                 } else { // network game
                     if (locName.getText().length() == 0) {
                         JOptionPane.showMessageDialog(this,
@@ -431,6 +442,7 @@ public class NewGameDialog extends JDialog {
         boolean local = RBlocal.isSelected();
         boolean net = RBnetwork.isSelected();
         boolean ai = RBcomputer.isSelected();
+        boolean aivai = RBcvc.isSelected(); // TODO Não sei do porque
         boolean client = net && RBclient.isSelected();
 
         name1.setEnabled(local);
@@ -467,6 +479,8 @@ public class NewGameDialog extends JDialog {
             RBserver.setSelected(true);
         } else if (mode.equals("ai")) {
             RBcomputer.setSelected(true);
+        } else if (mode.equals("aivai")) {
+            //TODO Não sei oque
         } else {
             throw new RuntimeException("unsupported mode: " + mode);
         }
