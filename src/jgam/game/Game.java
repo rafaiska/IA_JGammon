@@ -129,8 +129,6 @@ public class Game {
         this.player1.setGame(this, 1);
         this.player2.setGame(this, 2);
         this.jgam = jgam;
-        this.uiObject = new UIObject(jgam, this);
-        this.diceLogger = jgam.getDiceLogger();
     }
 
     /**
@@ -180,13 +178,16 @@ public class Game {
      * start a thread and save in gameThread.
      */
     public void start() {
+        this.diceLogger = jgam.getDiceLogger();
+        this.uiObject = new UIObject(jgam, this);
         assert gameThread == null;
         if (snapshot == null) {
             snapshot = BoardSnapshot.INITIAL_SETUP;
         }
+        Game x = this;
         gameThread = new Thread("Game-Thread") {
             public void run() {
-                Game.this.run();
+                x.run();
             }
         };
         gameThread.start();

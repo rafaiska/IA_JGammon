@@ -69,36 +69,38 @@ public class AIPlayer extends Player {
         try {
 
             switch (playerMessage.getMessage()) {
-            case PlayerMessage.MY_TURN:
-                if (playerMessage.getOwner() == this) {
-                    myturn();
-                }
-                break;
+                case PlayerMessage.MY_TURN:
+                    if (playerMessage.getOwner() == this) {
+                        myturn();
+                    }
+                    break;
 
-            case PlayerMessage.START_GAME:
-                if (game.getGameBoard().getPlayerAtMove() == getNumber()) {
-                    mymoves();
-                }
-                break;
+                case PlayerMessage.START_GAME:
+                    if (game.getGameBoard().getPlayerAtMove() == getNumber()) {
+                        mymoves();
+                    }
+                    break;
 
-            case PlayerMessage.DICES:
-                if (playerMessage.getOwner() == this) {
-                    mymoves();
-                }
-                break;
+                case PlayerMessage.DICES:
+                    if (playerMessage.getOwner() == this) {
+                        mymoves();
+                    }
+                    break;
 
-            case PlayerMessage.DOUBLE:
-                if (playerMessage.getOwner() != this) {
-                    answerDouble();
-                }
-                break;
+                case PlayerMessage.DOUBLE:
+                    if (playerMessage.getOwner() != this) {
+                        answerDouble();
+                    }
+                    break;
 
-            case PlayerMessage.GIVEUP_REQUEST:
-                answerGiveUp();
-                break;
-
-//                default:
-//                    System.err.println("Unhandled for AI: " + playerMessage);
+                case PlayerMessage.GIVEUP_REQUEST:
+                    answerGiveUp();
+                    break;
+                case PlayerMessage.GAME_OVER:
+                    
+                    break;
+                //default:
+                    //System.err.println("Unhandled for AI: " + playerMessage);
 
             }
         }

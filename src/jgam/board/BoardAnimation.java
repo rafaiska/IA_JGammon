@@ -51,8 +51,7 @@ public class BoardAnimation implements Paintable {
     private double curX, curY;
     private double offsetX, offsetY;
 
-    public static final int STEPLENGTH = Integer.getInteger(
-                                         "jgam.animationstep", 25).intValue();
+    public static final int STEPLENGTH = 500;
 
     private static final long SLEEPTIME = Integer.getInteger(
                                           "jgam.animationdelay", 35).intValue();

@@ -117,6 +117,7 @@ public class UIObject {
 
             // ---------------------------------
         case PlayerMessage.GAME_OVER:
+            UIObject x = this;
             SwingUtilities.invokeLater(new Runnable() {
                 public void run() {
                     String m = null;
@@ -138,9 +139,9 @@ public class UIObject {
 
                     String message1 = MessageFormat.format(m, new Object[] {playername});
                     String message2 = MessageFormat.format(msg.getString("worth"), new Object[] {amount});
-                    JOptionPane.showMessageDialog(jgam.getFrame(), message1 + " " + message2,
-                            msg.getString("gameover"), JOptionPane.INFORMATION_MESSAGE,
-                            jgam.getBoard().getCheckerIcon(playerMessage.getOwner().getNumber()));
+//                    JOptionPane.showMessageDialog(jgam.getFrame(), message1 + " " + message2,
+//                            msg.getString("gameover"), JOptionPane.INFORMATION_MESSAGE,
+//                            jgam.getBoard().getCheckerIcon(playerMessage.getOwner().getNumber()));
 
                     jgam.getFrame().setLabel(null);
                     jgam.getFrame().setIcon(null);
@@ -148,7 +149,8 @@ public class UIObject {
                     actionManager.disable("roll");
                     actionManager.disable("giveup");
                     actionManager.disable("undo");
-
+                    System.out.println(playerMessage.getOwner().getName());
+                    x.jgam.clearGame();
                 }
             });
             break;

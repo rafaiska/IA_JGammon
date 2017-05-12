@@ -345,11 +345,8 @@ public class NewGameDialog extends JDialog {
                     int nJgs = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero de jogos:"));
 
                     if (pSelec != null && sSelec != null) {
-                        Player ai1 = new AIPlayer(pSelec);
-                        Player ai2 = new AIPlayer(sSelec);
-
                         for (int i = 0; i < nJgs; i++) {
-                            tempGame = new Game(new LocalDiceRoller(), ai1, ai2, jgam);
+                            tempGame = new Game(new LocalDiceRoller(), new AIPlayer(pSelec), new AIPlayer(sSelec), jgam);
                             game.add(tempGame);
                         }
                         return  true;
