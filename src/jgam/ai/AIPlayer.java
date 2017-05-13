@@ -97,7 +97,7 @@ public class AIPlayer extends Player {
                     answerGiveUp();
                     break;
                 case PlayerMessage.GAME_OVER:
-                    
+
                     break;
                 //default:
                     //System.err.println("Unhandled for AI: " + playerMessage);
