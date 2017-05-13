@@ -22,39 +22,50 @@ public class IAProgramadaPelaEquipe extends EvaluatingAI {
      * @param setup
      * @return float greater or equal than 0
      */
-    private float heuristicaAvanco(ArrayBoardSetup setup) {
+    private float heuristicaAvanco(BoardSetup setup) {
         int player = setup.getActivePlayer();
 
         return setup.calcPip(player);
     }
 
-    private float heuristicaProtecao(ArrayBoardSetup setup) {
+    private float heuristicaProtecao(BoardSetup setup) {
         int player = setup.getActivePlayer();
 
         float protegidos = 0;
 
         for (int i = 0; i < 24; i++) {
             if (setup.getPoint(player, i) > 1) {
-                protegidos += setup.getPoint(player, i);
+                protegidos++;
             }
         }
         return protegidos;
     }
 
-    private float heuristicaAtaque(ArrayBoardSetup setup) {
+    private float heuristicaAtaque(BoardSetup setup) {
+        float atacaveis = 0;
+
+        int playerAtacante = setup.getActivePlayer();
+        int playerDefensor = (playerAtacante == 1) ? 1: 2;
+
         PossibleMoves possibleMoves = new PossibleMoves(setup);
 
-        java.util.List<> = possibleMoves.moveChains;
-        return 0;
+        java.util.List<java.util.List<SingleMove>> moveChains = possibleMoves.getPossibleMoveChains();
+        for (java.util.List  list : moveChains) {
+            for (Object move : list) {
+                int to = ((SingleMove)move).to();
+
+                atacaveis += setup.getPoint(playerDefensor, to);
+            }
+        }
+
+        return atacaveis;
     }
 
     @Override
     public double propabilityToWin(BoardSetup setup) throws CannotDecideException {
         /* @todo só escreve aqui teu codigo */
 
-
-
-        return 0;
+        return heuristicaProtecao(setup) + heuristicaAvanco(setup);
     }
 
     /**
@@ -83,7 +94,7 @@ public class IAProgramadaPelaEquipe extends EvaluatingAI {
      */
     @Override
     public String getName() {
-        return null;
+        return "IA Radical";
     }
 
     /**
@@ -93,6 +104,6 @@ public class IAProgramadaPelaEquipe extends EvaluatingAI {
      */
     @Override
     public String getDescription() {
-        return null;
+        return "Ia mais radical";
     }
 }
