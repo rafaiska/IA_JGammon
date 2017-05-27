@@ -32,6 +32,7 @@ import jgam.*;
 import jgam.gui.*;
 import jgam.history.*;
 import jgam.util.*;
+import sun.security.util.Debug;
 
 /**
  * This is the game itsself - the logic etc.
@@ -260,6 +261,7 @@ public class Game {
 
         // determine the type of winning, if not already done by giveup or
         // dropped double
+        System.out.println("Jogador vencedor: " + winner.getName());
         if (wintype == -1) {
             int loser = 3 - winner.getNumber();
             if (gameBoard.getPoint(loser, 0) > 0) {

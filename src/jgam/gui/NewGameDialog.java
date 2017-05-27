@@ -151,7 +151,7 @@ public class NewGameDialog extends JDialog {
         RBclient.setText(msg.getString("connect"));
         RBcomputer.setText(msg.getString("gnubg"));
         //TODO rola alguma coisa aqui
-        RBcvc.setText("Computador Vs. Computador");
+        RBcvc.setText("IA Vs. IA");
         jLabel1.setText(msg.getString("locname1"));
         name1.setPreferredSize(new Dimension(110, 20));
         name1.setText("Antonetta");
@@ -339,10 +339,11 @@ public class NewGameDialog extends JDialog {
                         }
                     }
                 } else if (RBcvc.isSelected()){
-                    AI pSelec = selectAI();
-                    AI sSelec = selectAI();
+                    //TODO: Modificar para escolher automaticamente as IAs
+                    AI pSelec = new IADesafiada();
+                    AI sSelec = new IADesafiante();
 
-                    int nJgs = Integer.parseInt(JOptionPane.showInputDialog(null, "Digite o numero de jogos:"));
+                    int nJgs = Integer.parseInt(JOptionPane.showInputDialog(null, "Número de jogos:"));
 
                     if (pSelec != null && sSelec != null) {
                         for (int i = 0; i < nJgs; i++) {

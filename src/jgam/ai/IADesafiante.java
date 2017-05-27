@@ -1,9 +1,19 @@
+/*
+ * To change this license header, choose License Headers in Project Properties.
+ * To change this template file, choose Tools | Templates
+ * and open the template in the editor.
+ */
 package jgam.ai;
 
-import jgam.game.*;
+import jgam.game.BoardSetup;
+import jgam.game.SingleMove;
 
-public class IAProgramadaPelaEquipe implements AI {
-    /**
+/**
+ *
+ * @author rafael
+ */
+public class IADesafiante implements AI{
+        /**
      * initialize this instance. Is called before it is used to
      * make decisions.
      *
@@ -29,7 +39,7 @@ public class IAProgramadaPelaEquipe implements AI {
      */
     @Override
     public String getName() {
-        return null;
+        return "IA Desafiante";
     }
 
     /**
@@ -39,7 +49,7 @@ public class IAProgramadaPelaEquipe implements AI {
      */
     @Override
     public String getDescription() {
-        return null;
+        return "Bagulho Escroto";
     }
 
     /**
