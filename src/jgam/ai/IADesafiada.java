@@ -5,7 +5,11 @@
  */
 package jgam.ai;
 
+import java.util.ArrayList;
+import java.util.Iterator;
+import java.util.List;
 import jgam.game.BoardSetup;
+import jgam.game.PossibleMoves;
 import jgam.game.SingleMove;
 
 /**
@@ -18,7 +22,7 @@ public class IADesafiada implements AI{
      * make decisions.
      *
      * @throws Exception if sth goes wrong during init.
-     */
+     */  
     @Override
     public void init() throws Exception {
 
@@ -52,6 +56,57 @@ public class IADesafiada implements AI{
         return "Bagulho Escroto";
     }
 
+    double HeuristicaDefensiva(BoardSetup boardSetup)
+    {
+        double retorno = 0.0;
+        int jogador = boardSetup.getPlayerAtMove();
+        int oponente = 3 - jogador;
+
+        //Avaliação: número de peças nas casas
+        for (int i = 1; i <= 24; i++) {
+            int p = boardSetup.getPoint(jogador, i);
+//            System.out.print(p + " ");
+            
+            //Casa com uma peça: PERIGO!
+            if (p == 1) {
+                retorno -= 50.0;
+            }
+            //Número ideal de peças na casa
+            else if (p == 2 || p == 3) {
+                retorno += 50.0;
+            }
+            //Mais que três peças em uma casa forma uma torre. O ideal é que as
+            //peças fiquem mais distribuídas
+            else {
+                retorno -= 20.0;
+            }
+        }
+        
+        //Peça inimiga foi "comida"?
+        if(boardSetup.getPoint(oponente, 0) == 1)
+        {
+            retorno += 20.0;
+        }
+        
+        //Peça aliada foi "comida"?
+        if(boardSetup.getPoint(jogador, 0) == 1)
+        {
+            retorno -= 50.0;
+        }
+        
+        //Pontos totais do jogador
+        int pontos = boardSetup.getPoint(jogador, 25);
+        retorno += pontos * 5.0;
+        
+        //Pontos totais do oponente
+        pontos = boardSetup.getPoint(oponente, 25);
+        retorno -= pontos * 10.0;
+        
+//        System.out.print("\n");
+        
+        return retorno;
+    }
+    
     /**
      * given a board make decide which moves to make.
      * There may not be any dice values left after call to this function.
@@ -62,7 +117,27 @@ public class IADesafiada implements AI{
      */
     @Override
     public SingleMove[] makeMoves(BoardSetup boardSetup) throws CannotDecideException {
-        return new SingleMove[0];
+        double bestValue = Double.NEGATIVE_INFINITY;
+        int bestIndex = -1;
+
+        PossibleMoves pm = new PossibleMoves(boardSetup);
+        List list = pm.getPossbibleNextSetups();
+        int index = 0;
+        for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
+            BoardSetup setup = (BoardSetup) iter.next();
+            double value = HeuristicaDefensiva(setup);
+            if (value > bestValue) {
+                bestValue = value;
+                bestIndex = index;
+            }
+        }
+
+        if (bestIndex == -1)
+            return new SingleMove[0];
+        else {
+            // Sy stem.out.println("Evaluation for this move: "+bestValue);
+            return pm.getMoveChain(bestIndex);
+        }
     }
 
     /**
@@ -74,7 +149,7 @@ public class IADesafiada implements AI{
      */
     @Override
     public int rollOrDouble(BoardSetup boardSetup) throws CannotDecideException {
-        return 0;
+        return ROLL;
     }
 
     /**
@@ -87,6 +162,6 @@ public class IADesafiada implements AI{
      */
     @Override
     public int takeOrDrop(BoardSetup boardSetup) throws CannotDecideException {
-        return 0;
+        return TAKE;
     }
 }
