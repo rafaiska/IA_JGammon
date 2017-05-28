@@ -98,6 +98,34 @@ public class IADesafiante implements AI{
       return returnValue;
     }
 
+    double opponentBestMove(BoardSetup boardSetup) {
+        double bestValue = Double.NEGATIVE_INFINITY;
+        for(int firstdie = 1; firstdie <= 6; ++firstdie) {
+            for(int seconddie = firstdie; seconddie <= 6; ++seconddie) {
+                boardSetup.getDice()[0] = firstdie;
+                boardSetup.getDice()[1] = seconddie;
+
+                PossibleMoves pm = new PossibleMoves(boardSetup);
+                List list = pm.getPossbibleNextSetups();
+                int index = 0;
+                for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
+                    BoardSetup setup = (BoardSetup) iter.next();
+                    double value = HeuristicaDefensiva(setup, false);
+                    if (firstdie == seconddie)
+                    {
+                        //É mais improvável cair dois dados iguais
+                        //Esse peso funciona para balancear esse caso especial
+                        value *= 0.8;
+                    }
+                    if (value > bestValue) {
+                        bestValue = value;
+                    }
+                }
+            }
+        }
+        return bestValue;
+    }
+
     @Override
     public SingleMove[] makeMoves(BoardSetup boardSetup) throws CannotDecideException {
         double bestValue = Double.NEGATIVE_INFINITY;
@@ -109,7 +137,7 @@ public class IADesafiante implements AI{
         int index = 0;
         for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
             BoardSetup setup = (BoardSetup) iter.next();
-            double value = eval(setup);
+            double value = agressiveHeuristic(setup);
 
             if (value > bestValue) {
                 bestValue = value;
