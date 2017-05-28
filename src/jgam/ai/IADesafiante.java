@@ -62,8 +62,6 @@ public class IADesafiante implements AI{
      * @throws CannotDecideException if the AI cannot decide which moves to make
      */
 
-    double
-
     double agressiveHeuristic (BoardSetup boardSetup) {
       double returnValue = 0.0;
       int player = boardSetup.getPlayerAtMove();
@@ -80,6 +78,9 @@ public class IADesafiante implements AI{
         else if (checkersPoint == 1){
           returnValue -= 25.0;
         }
+
+        else
+            returnValue += 25.0;
       }
 
       //Para o agressivo, quanto mais peca inimiga no inicio, eh melhor
@@ -108,18 +109,18 @@ public class IADesafiante implements AI{
                 PossibleMoves pm = new PossibleMoves(boardSetup);
                 List list = pm.getPossbibleNextSetups();
                 int index = 0;
+
                 for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
                     BoardSetup setup = (BoardSetup) iter.next();
-                    double value = HeuristicaDefensiva(setup, false);
+                    double value = agressiveHeuristic(setup);
+                    value -= opponentBestMove(setup);
+
                     if (firstdie == seconddie)
-                    {
-                        //É mais improvável cair dois dados iguais
-                        //Esse peso funciona para balancear esse caso especial
                         value *= 0.8;
-                    }
-                    if (value > bestValue) {
+
+                    if (value > bestValue)
                         bestValue = value;
-                    }
+
                 }
             }
         }
@@ -130,14 +131,15 @@ public class IADesafiante implements AI{
     public SingleMove[] makeMoves(BoardSetup boardSetup) throws CannotDecideException {
         double bestValue = Double.NEGATIVE_INFINITY;
         int bestIndex = -1;
+        int index = 0;
 
         PossibleMoves pm = new PossibleMoves(boardSetup);
         List list = pm.getPossbibleNextSetups();
 
-        int index = 0;
         for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
             BoardSetup setup = (BoardSetup) iter.next();
             double value = agressiveHeuristic(setup);
+            value -= opponentBestMove(setup);
 
             if (value > bestValue) {
                 bestValue = value;
@@ -147,12 +149,9 @@ public class IADesafiante implements AI{
 
         if (bestIndex == -1)
             return new SingleMove[0];
-        else {
-            // Sy stem.out.println("Evaluation for this move: "+bestValue);
+        else
             return pm.getMoveChain(bestIndex);
-        }
 
-        //return new SingleMove[0];
     }
 
     /**
