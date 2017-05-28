@@ -56,11 +56,18 @@ public class IADesafiada implements AI{
         return "Bagulho Escroto";
     }
 
-    double HeuristicaDefensiva(BoardSetup boardSetup)
+    double HeuristicaDefensiva(BoardSetup boardSetup, boolean jogadoratual)
     {
         double retorno = 0.0;
         int jogador = boardSetup.getPlayerAtMove();
         int oponente = 3 - jogador;
+        
+        if(!jogadoratual)
+        {
+            int aux = jogador;
+            jogador = oponente;
+            oponente = aux;
+        }
 
         //Avaliação: número de peças nas casas
         for (int i = 1; i <= 24; i++) {
@@ -107,6 +114,37 @@ public class IADesafiada implements AI{
         return retorno;
     }
     
+    double MelhorJogadaOponente(BoardSetup boardSetup)
+    {
+        double bestValue = Double.NEGATIVE_INFINITY;
+        for(int firstdie = 1; firstdie <= 6; ++firstdie)
+        {
+            for(int seconddie = firstdie; seconddie <= 6; ++seconddie)
+            {
+                boardSetup.getDice()[0] = firstdie;
+                boardSetup.getDice()[1] = seconddie;
+
+                PossibleMoves pm = new PossibleMoves(boardSetup);
+                List list = pm.getPossbibleNextSetups();
+                int index = 0;
+                for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
+                    BoardSetup setup = (BoardSetup) iter.next();
+                    double value = HeuristicaDefensiva(setup, false);
+                    if (firstdie == seconddie)
+                    {
+                        //É mais improvável cair dois dados iguais
+                        //Esse peso funciona para balancear esse caso especial
+                        value *= 0.8;
+                    }
+                    if (value > bestValue) {
+                        bestValue = value;
+                    }
+                }
+            }
+        }
+        return bestValue;
+    }
+    
     /**
      * given a board make decide which moves to make.
      * There may not be any dice values left after call to this function.
@@ -125,7 +163,8 @@ public class IADesafiada implements AI{
         int index = 0;
         for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
             BoardSetup setup = (BoardSetup) iter.next();
-            double value = HeuristicaDefensiva(setup);
+            double value = HeuristicaDefensiva(setup, true);
+            value -= MelhorJogadaOponente(setup);
             if (value > bestValue) {
                 bestValue = value;
                 bestIndex = index;
