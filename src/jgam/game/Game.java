@@ -261,7 +261,6 @@ public class Game {
 
         // determine the type of winning, if not already done by giveup or
         // dropped double
-        System.out.println("Jogador vencedor: " + winner.getName());
         if (wintype == -1) {
             int loser = 3 - winner.getNumber();
             if (gameBoard.getPoint(loser, 0) > 0) {

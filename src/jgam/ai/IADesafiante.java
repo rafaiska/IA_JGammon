@@ -40,7 +40,7 @@ public class IADesafiante implements AI{
      */
     @Override
     public String getName() {
-        return "IA Desafiante";
+        return "IA Ofensiva";
     }
 
     /**
@@ -50,7 +50,7 @@ public class IADesafiante implements AI{
      */
     @Override
     public String getDescription() {
-        return "Bagulho Escroto";
+        return "IA implementada com MiniMax de profundidade 2 com heurísticas ofensivas";
     }
 
     /**
@@ -91,10 +91,10 @@ public class IADesafiante implements AI{
         returnValue -= 50.0;
 
       int point = boardSetup.getPoint(player, 25);
-      returnValue += checkersPoint * 5.0; 
+      returnValue += point * 50.0; 
 
       point = boardSetup.getPoint(opponent, 25);
-      returnValue -= checkersPoint * 10.0;
+      returnValue -= point * 50.0;
 
       return returnValue;
     }
@@ -113,7 +113,6 @@ public class IADesafiante implements AI{
                 for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
                     BoardSetup setup = (BoardSetup) iter.next();
                     double value = agressiveHeuristic(setup);
-                    value -= opponentBestMove(setup);
 
                     if (firstdie == seconddie)
                         value *= 0.8;
@@ -163,7 +162,7 @@ public class IADesafiante implements AI{
      */
     @Override
     public int rollOrDouble(BoardSetup boardSetup) throws CannotDecideException {
-        return 0;
+        return ROLL;
     }
 
     /**
@@ -176,6 +175,6 @@ public class IADesafiante implements AI{
      */
     @Override
     public int takeOrDrop(BoardSetup boardSetup) throws CannotDecideException {
-        return 0;
+        return TAKE;
     }
 }

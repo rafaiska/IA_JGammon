@@ -96,11 +96,11 @@ public class IADesafiada implements AI{
         
         //Pontos totais do jogador
         int pontos = boardSetup.getPoint(jogador, 25);
-        retorno += pontos * 5.0;
+        retorno += pontos * 50.0;
         
         //Pontos totais do oponente
         pontos = boardSetup.getPoint(oponente, 25);
-        retorno -= pontos * 10.0;
+        retorno -= pontos * 50.0;
         
 //        System.out.print("\n");
         
