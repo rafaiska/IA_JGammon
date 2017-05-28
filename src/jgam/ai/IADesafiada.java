@@ -43,7 +43,7 @@ public class IADesafiada implements AI{
      */
     @Override
     public String getName() {
-        return "Bagulho";
+        return "IA Defensiva";
     }
 
     /**
@@ -53,21 +53,14 @@ public class IADesafiada implements AI{
      */
     @Override
     public String getDescription() {
-        return "Bagulho Escroto";
+        return "IA implementada com MiniMax de profundidade 2 com heurísticas defensivas";
     }
 
-    double HeuristicaDefensiva(BoardSetup boardSetup, boolean jogadoratual)
+    double HeuristicaDefensiva(BoardSetup boardSetup)
     {
         double retorno = 0.0;
         int jogador = boardSetup.getPlayerAtMove();
-        int oponente = 3 - jogador;
-        
-        if(!jogadoratual)
-        {
-            int aux = jogador;
-            jogador = oponente;
-            oponente = aux;
-        }
+        int oponente = 3 - jogador;        
 
         //Avaliação: número de peças nas casas
         for (int i = 1; i <= 24; i++) {
@@ -129,7 +122,7 @@ public class IADesafiada implements AI{
                 int index = 0;
                 for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
                     BoardSetup setup = (BoardSetup) iter.next();
-                    double value = HeuristicaDefensiva(setup, false);
+                    double value = HeuristicaDefensiva(setup);
                     if (firstdie == seconddie)
                     {
                         //É mais improvável cair dois dados iguais
@@ -163,7 +156,7 @@ public class IADesafiada implements AI{
         int index = 0;
         for (Iterator iter = list.iterator(); iter.hasNext(); index++) {
             BoardSetup setup = (BoardSetup) iter.next();
-            double value = HeuristicaDefensiva(setup, true);
+            double value = HeuristicaDefensiva(setup);
             value -= MelhorJogadaOponente(setup);
             if (value > bestValue) {
                 bestValue = value;
